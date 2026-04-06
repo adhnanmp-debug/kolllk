@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infinomex Global Private Limited — From India, To The World</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g0:#0a1a0f;
+  --g1:#1b4332;
+  --g2:#2d6a4f;
+  --g3:#40916c;
+  --g4:#52b788;
+  --g5:#74c69d;
+  --g6:#b7e4c7;
+  --g7:#d8f3dc;
+  --g8:#f0faf3;
+  --off:#f7f4ee;
+  --cream:#ede9df;
+  --ink:#0e1a13;
+  --muted:#6b7c72;
+  --border:rgba(45,106,79,.12);
+  --fd:'Playfair Display',Georgia,serif;
+  --fb:'DM Sans',sans-serif;
+  --fm:'DM Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{background:var(--off);color:var(--ink);font-family:var(--fb);overflow-x:hidden;cursor:none;}
+#cur{position:fixed;width:8px;height:8px;background:var(--g2);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .12s,width .3s,height .3s;}
+#cur2{position:fixed;width:32px;height:32px;border:1.5px solid var(--g3);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .18s ease;opacity:.55;}
+body.hovering #cur{transform:translate(-50%,-50%) scale(2.2);background:var(--g4);}
+body.hovering #cur2{opacity:0;width:48px;height:48px;}
+#loader{position:fixed;inset:0;background:var(--g0);z-index:9990;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;transition:opacity .9s ease,visibility .9s;}
+#loader.done{opacity:0;visibility:hidden;}
+.ld-logo{width:200px;opacity:0;animation:ldUp .8s .3s forwards;}
+.ld-line{width:180px;height:1px;background:rgba(255,255,255,.1);overflow:hidden;}
+.ld-bar{height:100%;background:var(--g5);width:0;animation:ldBar 1.8s .5s ease forwards;}
+.ld-txt{font-family:var(--fm);font-size:10px;letter-spacing:.2em;color:var(--g6);text-transform:uppercase;opacity:0;animation:ldUp .6s .4s forwards;}
+@keyframes ldUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+@keyframes ldBar{to{width:100%;}}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--cream);}
+::-webkit-scrollbar-thumb{background:var(--g3);}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:24px 52px;transition:all .4s;border-bottom:1px solid transparent;}
+nav.scrolled{background:rgba(247,244,238,.95);backdrop-filter:blur(14px);padding:16px 52px;border-bottom-color:var(--border);}
+.nav-logo img{height:34px;display:block;}
+.nav-links{display:flex;gap:38px;list-style:none;}
+.nav-links a{font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);text-decoration:none;transition:color .2s;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--g2);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
+.nav-links a:hover{color:var(--g2);}
+.nav-links a:hover::after{transform:scaleX(1);}
+.nav-cta{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--off);background:var(--g1);padding:10px 24px;border-radius:1px;text-decoration:none;transition:all .25s;}
+.nav-cta:hover{background:var(--g2);}
+.nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;}
+.nav-burger span{width:22px;height:1.5px;background:var(--g1);}
+#hero{min-height:100vh;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;padding:0 52px 72px;background:var(--g8);}
+#hero-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+.hero-grain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;}
+.hero-content{position:relative;z-index:2;}
+.hero-eyebrow{font-family:var(--fm);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--g3);margin-bottom:24px;opacity:0;animation:fadeUp .7s 2.4s forwards;}
+.hero-title{font-family:var(--fd);font-size:clamp(62px,9.5vw,148px);font-weight:300;line-height:.96;letter-spacing:-2px;color:var(--g0);opacity:0;animation:fadeUp .9s 2.5s forwards;}
+.hero-title em{font-style:italic;color:var(--g2);}
+.hero-title .line2{display:block;padding-left:clamp(40px,8vw,120px);}
+.hero-tagline{font-size:clamp(15px,1.6vw,18px);font-weight:300;color:var(--muted);max-width:480px;line-height:1.75;margin-top:32px;opacity:0;animation:fadeUp .7s 2.7s forwards;}
+.hero-bottom{display:flex;justify-content:space-between;align-items:flex-end;margin-top:52px;opacity:0;animation:fadeUp .7s 2.9s forwards;flex-wrap:wrap;gap:20px;}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;}
+.btn-p{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--off);background:var(--g1);padding:14px 30px;border-radius:1px;text-decoration:none;transition:all .3s;border:none;cursor:pointer;}
+.btn-p:hover{background:var(--g2);transform:translateY(-2px);}
+.btn-s{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--g1);border:1px solid rgba(45,106,79,.35);padding:14px 30px;border-radius:1px;text-decoration:none;transition:all .3s;}
+.btn-s:hover{background:var(--g7);border-color:var(--g3);}
+.hero-scroll-hint{font-family:var(--fm);font-size:9px;letter-spacing:.2em;color:var(--muted);display:flex;align-items:center;gap:10px;text-transform:uppercase;}
+.scroll-anim{width:1px;height:44px;background:var(--g6);position:relative;overflow:hidden;}
+.scroll-anim::after{content:'';position:absolute;top:-44px;left:0;right:0;height:44px;background:var(--g3);animation:scrollDrop 2s 3s infinite;}
+@keyframes scrollDrop{0%{transform:translateY(0);}100%{transform:translateY(88px);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:none;}}
+.marquee-wrap{background:var(--g1);padding:14px 0;overflow:hidden;}
+.marquee-track{display:flex;gap:0;white-space:nowrap;animation:marqueeL 28s linear infinite;}
+@keyframes marqueeL{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.marquee-item{font-family:var(--fm);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--g7);padding:0 44px;display:inline-flex;align-items:center;gap:44px;}
+.marquee-item::after{content:'\2736';color:var(--g5);font-size:7px;}
+section{padding:110px 52px;}
+.s-label{font-family:var(--fm);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--g3);margin-bottom:18px;display:flex;align-items:center;gap:12px;}
+.s-label::before{content:'';width:24px;height:1px;background:var(--g3);}
+.s-title{font-family:var(--fd);font-size:clamp(38px,5.5vw,72px);font-weight:300;line-height:1.08;letter-spacing:-1px;color:var(--g0);}
+.s-title em{font-style:italic;color:var(--g2);}
+#about{background:var(--off);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.about-number{font-family:var(--fd);font-size:clamp(100px,16vw,220px);font-weight:700;line-height:1;color:var(--g7);letter-spacing:-6px;margin-bottom:-24px;user-select:none;}
+.about-body{font-size:16px;font-weight:300;line-height:1.85;color:var(--muted);margin-top:24px;}
+.about-body strong{color:var(--g1);font-weight:500;}
+.about-stats{display:flex;flex-direction:column;gap:0;}
+.astat{border-top:1px solid var(--border);padding:22px 0;display:flex;justify-content:space-between;align-items:center;}
+.astat:last-child{border-bottom:1px solid var(--border);}
+.astat-n{font-family:var(--fd);font-size:46px;font-weight:600;color:var(--g2);line-height:1;}
+.astat-l{font-size:13px;color:var(--muted);max-width:200px;line-height:1.5;}
+.astat-icon{width:36px;height:36px;stroke:var(--g5);fill:none;stroke-width:1.5;flex-shrink:0;}
+#products{background:var(--g8);}
+.products-intro{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:64px;gap:24px;flex-wrap:wrap;}
+.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;}
+.prod-card{position:relative;overflow:hidden;background:var(--off);cursor:default;transition:transform .5s ease;}
+.prod-card:hover{transform:translateY(-4px);}
+.prod-img{width:100%;height:280px;object-fit:cover;display:block;transition:transform .6s ease;filter:brightness(.92) saturate(1.1);}
+.prod-card:hover .prod-img{transform:scale(1.05);}
+.prod-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,26,15,.85) 0%,rgba(10,26,15,.1) 55%,transparent 100%);transition:opacity .4s;}
+.prod-card:hover .prod-overlay{opacity:.92;}
+.prod-info{position:absolute;bottom:0;left:0;right:0;padding:28px 28px 24px;}
+.prod-num{font-family:var(--fm);font-size:9px;letter-spacing:.15em;color:var(--g5);margin-bottom:8px;}
+.prod-name{font-family:var(--fd);font-size:28px;font-weight:400;color:#fff;line-height:1.15;}
+.prod-sub{font-size:12px;color:rgba(255,255,255,.6);margin-top:6px;line-height:1.5;opacity:0;transform:translateY(8px);transition:all .4s .05s;}
+.prod-card:hover .prod-sub{opacity:1;transform:none;}
+.prod-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:12px;opacity:0;transform:translateY(8px);transition:all .4s .1s;}
+.prod-card:hover .prod-tags{opacity:1;transform:none;}
+.prod-tag{font-family:var(--fm);font-size:9px;letter-spacing:.07em;color:var(--g6);border:1px solid rgba(116,198,157,.35);padding:3px 9px;border-radius:1px;}
+.prod-card.wide{grid-column:span 2;}
+#process{background:var(--off);}
+.process-list{margin-top:64px;}
+.proc-item{display:grid;grid-template-columns:72px 1fr auto;gap:36px;align-items:center;padding:32px 0;border-top:1px solid var(--border);transition:padding-left .3s;}
+.proc-item:hover{padding-left:10px;}
+.proc-item:last-child{border-bottom:1px solid var(--border);}
+.proc-n{font-family:var(--fd);font-size:56px;font-weight:600;color:var(--g7);line-height:1;transition:color .3s;}
+.proc-item:hover .proc-n{color:var(--g5);}
+.proc-name{font-family:var(--fd);font-size:clamp(22px,2.8vw,34px);font-weight:400;color:var(--g0);margin-bottom:8px;}
+.proc-desc{font-size:13px;color:var(--muted);line-height:1.65;}
+.proc-badge{font-family:var(--fm);font-size:10px;letter-spacing:.07em;color:var(--g3);border:1px solid var(--border);padding:6px 14px;border-radius:1px;white-space:nowrap;}
+#why{background:var(--g1);position:relative;overflow:hidden;}
+#why::before{content:'';position:absolute;right:-18vw;top:-18vw;width:60vw;height:60vw;border-radius:50%;border:1px solid rgba(255,255,255,.05);}
+#why .s-label{color:var(--g5);}
+#why .s-label::before{background:var(--g5);}
+#why .s-title{color:var(--off);}
+#why .s-title em{color:var(--g5);}
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:60px;position:relative;z-index:1;}
+.why-item{padding:44px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);transition:background .3s;}
+.why-item:hover{background:rgba(255,255,255,.08);}
+.why-icon{width:40px;height:40px;background:rgba(116,198,157,.15);border-radius:2px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
+.why-icon svg{width:20px;height:20px;stroke:var(--g5);fill:none;stroke-width:1.5;}
+.why-title{font-family:var(--fd);font-size:22px;font-weight:400;color:var(--off);margin-bottom:10px;}
+.why-desc{font-size:13px;color:rgba(216,243,220,.65);line-height:1.7;}
+#markets{background:var(--g8);}
+.markets-intro{margin-bottom:56px;}
+.markets-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;}
+.mkt-card{background:var(--off);padding:28px 24px;display:flex;flex-direction:column;gap:12px;transition:all .3s;border-bottom:2px solid transparent;cursor:default;}
+.mkt-card:hover{background:var(--g1);border-bottom-color:var(--g4);}
+.mkt-flag{font-size:36px;line-height:1;}
+.mkt-name{font-family:var(--fd);font-size:20px;font-weight:400;color:var(--g0);transition:color .3s;}
+.mkt-card:hover .mkt-name{color:var(--off);}
+.mkt-detail{font-size:12px;color:var(--muted);line-height:1.5;transition:color .3s;}
+.mkt-card:hover .mkt-detail{color:rgba(216,243,220,.65);}
+#certs{background:var(--cream);display:flex;flex-direction:column;align-items:center;text-align:center;}
+#certs .s-label{justify-content:center;}
+#certs .s-label::before{display:none;}
+.cert-sub{font-size:17px;font-weight:300;color:var(--muted);max-width:540px;line-height:1.75;margin-top:16px;margin-bottom:60px;}
+.certs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;width:100%;max-width:900px;}
+.cert-card{background:var(--off);padding:40px 24px;display:flex;flex-direction:column;align-items:center;gap:14px;transition:transform .3s;}
+.cert-card:hover{transform:translateY(-5px);}
+.cert-icon{width:56px;height:56px;border-radius:50%;border:1.5px solid var(--g6);display:flex;align-items:center;justify-content:center;}
+.cert-icon svg{width:26px;height:26px;stroke:var(--g2);fill:none;stroke-width:1.5;}
+.cert-name{font-family:var(--fd);font-size:17px;font-weight:600;color:var(--g1);}
+.cert-desc{font-size:11px;color:var(--muted);line-height:1.5;}
+#contact{background:var(--off);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+.contact-info{display:flex;flex-direction:column;gap:28px;}
+.ci-item{display:flex;gap:16px;align-items:flex-start;}
+.ci-icon{width:38px;height:38px;background:var(--g7);border-radius:2px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ci-icon svg{width:17px;height:17px;stroke:var(--g2);fill:none;stroke-width:1.5;}
+.ci-label{font-family:var(--fm);font-size:9px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;margin-bottom:4px;}
+.ci-val{font-size:14px;color:var(--ink);font-weight:500;}
+.contact-form{display:flex;flex-direction:column;gap:14px;}
+.fg{display:flex;flex-direction:column;gap:5px;}
+.fg label{font-family:var(--fm);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+.fg input,.fg select,.fg textarea{background:var(--cream);border:1px solid var(--border);border-radius:1px;padding:12px 14px;font-family:var(--fb);font-size:13px;color:var(--ink);outline:none;transition:border-color .25s;width:100%;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--g3);}
+.fg textarea{min-height:100px;resize:vertical;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+footer{background:var(--g0);color:var(--off);padding:60px 52px 36px;}
+.footer-top{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.08);flex-wrap:wrap;gap:40px;}
+.footer-brand img{height:28px;filter:brightness(0) invert(1);margin-bottom:14px;}
+.footer-tagline{font-size:12px;color:rgba(240,250,243,.5);line-height:1.65;max-width:260px;}
+.footer-links h5{font-family:var(--fm);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--g5);margin-bottom:14px;}
+.footer-links ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.footer-links a{font-size:12px;color:rgba(240,250,243,.55);text-decoration:none;transition:color .2s;}
+.footer-links a:hover{color:var(--off);}
+.footer-bottom{display:flex;justify-content:space-between;padding-top:24px;flex-wrap:wrap;gap:12px;}
+.footer-copy{font-size:11px;color:rgba(240,250,243,.3);}
+.footer-reg{font-family:var(--fm);font-size:9px;letter-spacing:.06em;color:rgba(240,250,243,.22);}
+.rv{opacity:0;transform:translateY(36px);transition:opacity .85s ease,transform .85s ease;}
+.rv.visible{opacity:1;transform:none;}
+.rv-l{opacity:0;transform:translateX(-36px);transition:opacity .85s ease,transform .85s ease;}
+.rv-l.visible{opacity:1;transform:none;}
+.rv-r{opacity:0;transform:translateX(36px);transition:opacity .85s ease,transform .85s ease;}
+.rv-r.visible{opacity:1;transform:none;}
+[data-d="1"]{transition-delay:.1s;}[data-d="2"]{transition-delay:.2s;}[data-d="3"]{transition-delay:.3s;}[data-d="4"]{transition-delay:.4s;}[data-d="5"]{transition-delay:.5s;}[data-d="6"]{transition-delay:.6s;}
+.mob-menu{position:fixed;inset:0;background:var(--g0);z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;transform:translateX(100%);transition:transform .5s ease;}
+.mob-menu.open{transform:none;}
+.mob-menu a{font-family:var(--fd);font-size:44px;font-weight:300;color:var(--off);text-decoration:none;transition:color .2s;}
+.mob-menu a:hover{color:var(--g5);}
+.mob-close{position:absolute;top:24px;right:28px;font-size:30px;color:var(--off);cursor:pointer;background:none;border:none;}
+@media(max-width:1100px){
+  section{padding:80px 36px;}
+  #hero{padding:0 36px 60px;}
+  nav{padding:20px 36px;}
+  nav.scrolled{padding:14px 36px;}
+  .products-grid{grid-template-columns:1fr 1fr;}
+  .prod-card.wide{grid-column:span 1;}
+  .markets-grid{grid-template-columns:repeat(3,1fr);}
+}
+@media(max-width:768px){
+  .nav-links,.nav-cta{display:none;}
+  .nav-burger{display:flex;}
+  section{padding:60px 22px;}
+  #hero{padding:0 22px 48px;}
+  nav{padding:18px 22px;}
+  #about{grid-template-columns:1fr;}
+  #contact{grid-template-columns:1fr;}
+  .products-grid{grid-template-columns:1fr;}
+  .why-grid{grid-template-columns:1fr;}
+  .markets-grid{grid-template-columns:repeat(2,1fr);}
+  .certs-grid{grid-template-columns:repeat(2,1fr);}
+  .proc-item{grid-template-columns:48px 1fr;}
+  .proc-badge{display:none;}
+  .footer-top{flex-direction:column;}
+  .form-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div id="cur"></div>
+<div id="cur2"></div>
+<div id="loader">
+  <img class="ld-logo" src="data:image/jpeg;base64,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" alt="Infinomex">
+  <div class="ld-txt">Loading experience</div>
+  <div class="ld-line"><div class="ld-bar"></div></div>
+</div>
+<div class="mob-menu" id="mobMenu">
+  <button class="mob-close" onclick="closeMob()">&#10005;</button>
+  <a href="#about" onclick="closeMob()">About</a>
+  <a href="#products" onclick="closeMob()">Products</a>
+  <a href="#process" onclick="closeMob()">Process</a>
+  <a href="#markets" onclick="closeMob()">Markets</a>
+  <a href="#contact" onclick="closeMob()">Contact</a>
+</div>
+<nav id="nav">
+  <a class="nav-logo" href="#hero">
+    <img src="data:image/jpeg;base64,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" alt="Infinomex">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#markets">Markets</a></li>
+    <li><a href="#certs">Certifications</a></li>
+  </ul>
+  <a class="nav-cta" href="#contact">Get in Touch</a>
+  <div class="nav-burger" onclick="openMob()"><span></span><span></span><span></span></div>
+</nav>
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-grain"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Infinomex Global Private Limited &middot; India</div>
+    <h1 class="hero-title">
+      India exports.<br>
+      <em class="line2">The world thrives.</em>
+    </h1>
+    <p class="hero-tagline">Bridging India's finest produce and goods to markets across the globe &mdash; with precision, compliance, and a commitment to lasting partnerships.</p>
+    <div class="hero-bottom">
+      <div class="hero-ctas">
+        <a class="btn-p" href="#products">Explore Products &rarr;</a>
+        <a class="btn-s" href="#contact">Request a Quote</a>
+      </div>
+      <div class="hero-scroll-hint">
+        <div class="scroll-anim"></div>
+        Scroll
+      </div>
+    </div>
+  </div>
+</section>
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Agricultural Products</span>
+    <span class="marquee-item">Steel Scrap</span>
+    <span class="marquee-item">Engineering Goods</span>
+    <span class="marquee-item">Basmati Rice</span>
+    <span class="marquee-item">APEDA Certified</span>
+    <span class="marquee-item">FSSAI Licensed</span>
+    <span class="marquee-item">Global Exim</span>
+    <span class="marquee-item">Made in India</span>
+    <span class="marquee-item">Agricultural Products</span>
+    <span class="marquee-item">Steel Scrap</span>
+    <span class="marquee-item">Engineering Goods</span>
+    <span class="marquee-item">Basmati Rice</span>
+    <span class="marquee-item">APEDA Certified</span>
+    <span class="marquee-item">FSSAI Licensed</span>
+    <span class="marquee-item">Global Exim</span>
+    <span class="marquee-item">Made in India</span>
+  </div>
+</div>
+<section id="about">
+  <div class="rv-l">
+    <div class="s-label">Who We Are</div>
+    <div class="about-number">INF<span style="color:var(--g5)">X</span></div>
+    <div class="s-title" style="margin-top:8px;">A new generation <em>exim</em> company.</div>
+    <p class="about-body"><strong>Infinomex Global Private Limited</strong> is an India-based export powerhouse connecting world-class Indian manufacturers and processors to international buyers across the Middle East, Africa, Europe, and Southeast Asia.<br><br>We don't just ship goods &mdash; we build <strong>reliable, long-term trade relationships</strong> backed by compliance, quality assurance, and end-to-end logistics mastery.</p>
+  </div>
+  <div class="about-stats rv-r">
+    <div class="astat rv" data-d="1">
+      <div><div class="astat-n">30+</div><div class="astat-l">Countries reached across key import markets</div></div>
+      <svg class="astat-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20"/></svg>
+    </div>
+    <div class="astat rv" data-d="2">
+      <div><div class="astat-n">3+</div><div class="astat-l">Core product verticals with flexible expansion</div></div>
+      <svg class="astat-icon" viewBox="0 0 24 24"><rect x="2" y="3" width="6" height="6"/><rect x="16" y="3" width="6" height="6"/><rect x="9" y="9" width="6" height="6"/><rect x="2" y="15" width="6" height="6"/><rect x="16" y="15" width="6" height="6"/></svg>
+    </div>
+    <div class="astat rv" data-d="3">
+      <div><div class="astat-n">100%</div><div class="astat-l">Compliance with international export regulations</div></div>
+      <svg class="astat-icon" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    </div>
+    <div class="astat rv" data-d="4">
+      <div><div class="astat-n">TT&middot;LC<br>&middot;DP&middot;CAD</div><div class="astat-l">Flexible payment modes accepted</div></div>
+      <svg class="astat-icon" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+    </div>
+  </div>
+</section>
+<section id="products">
+  <div class="products-intro">
+    <div>
+      <div class="s-label rv">What We Export</div>
+      <div class="s-title rv" data-d="1">Products that<br><em>move the world.</em></div>
+    </div>
+    <a class="btn-s rv" data-d="2" href="#contact">Request a Quote &rarr;</a>
+  </div>
+  <div class="products-grid">
+    <div class="prod-card wide rv-l" data-d="1">
+      <img class="prod-img" src="https://images.unsplash.com/photo-1586201375761-83865001e31c?w=900&q=80&fit=crop" alt="Agricultural Products" style="height:360px;">
+      <div class="prod-overlay"></div>
+      <div class="prod-info">
+        <div class="prod-num">01 / 04</div>
+        <div class="prod-name">Agricultural Products</div>
+        <div class="prod-sub">Premium grains, tropical fruits, and spices exported with full phytosanitary compliance and APEDA certification.</div>
+        <div class="prod-tags">
+          <span class="prod-tag">Basmati Rice</span><span class="prod-tag">Spices</span><span class="prod-tag">Coconut</span><span class="prod-tag">Bananas</span><span class="prod-tag">Pulses</span><span class="prod-tag">Oilseeds</span><span class="prod-tag">Sugar</span>
+        </div>
+      </div>
+    </div>
+    <div class="prod-card rv-r" data-d="2">
+      <img class="prod-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80&fit=crop" alt="Steel Scrap">
+      <div class="prod-overlay"></div>
+      <div class="prod-info">
+        <div class="prod-num">02 / 04</div>
+        <div class="prod-name">Steel Scrap &amp; Metals</div>
+        <div class="prod-sub">HMS 1&amp;2, shredded scrap, and ferrous/non-ferrous metals graded to international standards.</div>
+        <div class="prod-tags">
+          <span class="prod-tag">HMS 1 &amp; 2</span><span class="prod-tag">Shredded</span><span class="prod-tag">Cast Iron</span><span class="prod-tag">Non-Ferrous</span>
+        </div>
+      </div>
+    </div>
+    <div class="prod-card rv" data-d="3">
+      <img class="prod-img" src="https://images.unsplash.com/photo-1565689157206-0fddef7589a2?w=600&q=80&fit=crop" alt="Engineering Goods">
+      <div class="prod-overlay"></div>
+      <div class="prod-info">
+        <div class="prod-num">03 / 04</div>
+        <div class="prod-name">Engineering Goods</div>
+        <div class="prod-sub">Precision machinery, industrial tools, and manufactured components for global industries.</div>
+        <div class="prod-tags">
+          <span class="prod-tag">Machinery</span><span class="prod-tag">Tools</span><span class="prod-tag">Components</span><span class="prod-tag">Auto Parts</span>
+        </div>
+      </div>
+    </div>
+    <div class="prod-card wide rv" data-d="4">
+      <img class="prod-img" src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=900&q=80&fit=crop" alt="Custom Export" style="height:240px;">
+      <div class="prod-overlay"></div>
+      <div class="prod-info">
+        <div class="prod-num">04 / 04</div>
+        <div class="prod-name">Custom &amp; Flexible Exports</div>
+        <div class="prod-sub">Have a specific product in mind? We source and export virtually any commodity from India with full documentation and compliance support.</div>
+        <div class="prod-tags">
+          <span class="prod-tag">Textiles</span><span class="prod-tag">Chemicals</span><span class="prod-tag">Pharmaceuticals</span><span class="prod-tag">Handicrafts</span><span class="prod-tag">Leather Goods</span><span class="prod-tag">&amp; More</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="process">
+  <div class="rv">
+    <div class="s-label">How We Work</div>
+    <div class="s-title">A process built for<br><em>global precision.</em></div>
+  </div>
+  <div class="process-list">
+    <div class="proc-item rv" data-d="1"><div class="proc-n">01</div><div><div class="proc-name">Inquiry &amp; Sourcing</div><div class="proc-desc">You share your requirement &mdash; quantity, spec, destination. We identify the right verified suppliers and source the goods.</div></div><div class="proc-badge">Week 1</div></div>
+    <div class="proc-item rv" data-d="2"><div class="proc-n">02</div><div><div class="proc-name">Quotation &amp; Agreement</div><div class="proc-desc">We present competitive pricing with full transparency. A proforma invoice is issued and payment terms agreed.</div></div><div class="proc-badge">Week 1&ndash;2</div></div>
+    <div class="proc-item rv" data-d="3"><div class="proc-n">03</div><div><div class="proc-name">Quality Inspection</div><div class="proc-desc">Goods undergo rigorous third-party quality checks. Certificates of origin, lab reports, and phytosanitary documents are prepared.</div></div><div class="proc-badge">Week 2&ndash;3</div></div>
+    <div class="proc-item rv" data-d="4"><div class="proc-n">04</div><div><div class="proc-name">Customs &amp; Documentation</div><div class="proc-desc">We handle all export documentation &mdash; Bill of Lading, commercial invoice, packing list, LC compliance &mdash; end-to-end.</div></div><div class="proc-badge">Week 3</div></div>
+    <div class="proc-item rv" data-d="5"><div class="proc-n">05</div><div><div class="proc-name">Shipment &amp; Delivery</div><div class="proc-desc">Your cargo departs from JNPT, Mundra, or Chennai &mdash; by sea or air &mdash; and we track it to your door.</div></div><div class="proc-badge">Week 3&ndash;5</div></div>
+  </div>
+</section>
+<section id="why">
+  <div class="rv">
+    <div class="s-label">Why Infinomex</div>
+    <div class="s-title">Built on trust,<br><em>driven by excellence.</em></div>
+  </div>
+  <div class="why-grid">
+    <div class="why-item rv" data-d="1"><div class="why-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg></div><div class="why-title">Certified Compliance</div><div class="why-desc">APEDA, FSSAI, IEC/DGFT, GST registered. We ensure every shipment meets the destination country's regulatory framework.</div></div>
+    <div class="why-item rv" data-d="2"><div class="why-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div class="why-title">End-to-End Service</div><div class="why-desc">From sourcing to delivery &mdash; we handle everything. One point of contact, zero surprises.</div></div>
+    <div class="why-item rv" data-d="3"><div class="why-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div><div class="why-title">Trusted Network</div><div class="why-desc">Deep relationships with verified Indian manufacturers, processors, and logistics partners across all major export ports.</div></div>
+    <div class="why-item rv" data-d="4"><div class="why-icon"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div><div class="why-title">Flexible Payments</div><div class="why-desc">We support TT, LC, DP, and CAD payment modes to accommodate buyers from every corner of the world.</div></div>
+  </div>
+</section>
+<section id="markets">
+  <div class="markets-intro">
+    <div class="s-label rv">Our Markets</div>
+    <div class="s-title rv" data-d="1">Trusted across<br><em>30+ countries.</em></div>
+  </div>
+  <div class="markets-grid">
+    <div class="mkt-card rv" data-d="1"><div class="mkt-flag">&#127462;&#127466;</div><div class="mkt-name">UAE</div><div class="mkt-detail">Key hub for re-export and direct consumption of rice, spices &amp; metals</div></div>
+    <div class="mkt-card rv" data-d="2"><div class="mkt-flag">&#127462;&#127480;</div><div class="mkt-name">Saudi Arabia</div><div class="mkt-detail">Agricultural commodities and engineering goods in high demand</div></div>
+    <div class="mkt-card rv" data-d="3"><div class="mkt-flag">&#127475;&#127468;</div><div class="mkt-name">Nigeria</div><div class="mkt-detail">Major rice and food commodity importer from India</div></div>
+    <div class="mkt-card rv" data-d="4"><div class="mkt-flag">&#127480;&#127475;</div><div class="mkt-name">Senegal</div><div class="mkt-detail">Growing demand for broken rice and processed foods</div></div>
+    <div class="mkt-card rv" data-d="1"><div class="mkt-flag">&#127468;&#127463;</div><div class="mkt-name">United Kingdom</div><div class="mkt-detail">Premium basmati, spices and specialty agricultural products</div></div>
+    <div class="mkt-card rv" data-d="2"><div class="mkt-flag">&#127465;&#127466;</div><div class="mkt-name">Germany</div><div class="mkt-detail">Industrial engineering components and ferrous metals</div></div>
+    <div class="mkt-card rv" data-d="3"><div class="mkt-flag">&#127474;&#127486;</div><div class="mkt-name">Malaysia</div><div class="mkt-detail">Spices, coconut products and steel scrap imports</div></div>
+    <div class="mkt-card rv" data-d="4"><div class="mkt-flag">&#127480;&#127468;</div><div class="mkt-name">Singapore</div><div class="mkt-detail">High-value goods hub with strong trade links to India</div></div>
+    <div class="mkt-card rv" data-d="1"><div class="mkt-flag">&#127463;&#127465;</div><div class="mkt-name">Bangladesh</div><div class="mkt-detail">Rice, onion and food commodities from India</div></div>
+    <div class="mkt-card rv" data-d="2"><div class="mkt-flag">&#127470;&#127465;</div><div class="mkt-name">Indonesia</div><div class="mkt-detail">Tropical commodities and industrial materials</div></div>
+    <div class="mkt-card rv" data-d="3"><div class="mkt-flag">&#127472;&#127466;</div><div class="mkt-name">Kenya</div><div class="mkt-detail">Agricultural produce and re-export to East Africa</div></div>
+    <div class="mkt-card rv" data-d="4"><div class="mkt-flag">&#127758;</div><div class="mkt-name">&amp; More</div><div class="mkt-detail">Serving 30+ countries across all continents. Contact us for your region.</div></div>
+  </div>
+</section>
+<section id="certs">
+  <div class="s-label rv">Compliance First</div>
+  <div class="s-title rv" data-d="1">Every shipment,<br><em>fully certified.</em></div>
+  <p class="cert-sub rv" data-d="2">We carry all the certifications that international buyers demand &mdash; so your import process is smooth, compliant, and hassle-free.</p>
+  <div class="certs-grid">
+    <div class="cert-card rv" data-d="1"><div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div><div class="cert-name">APEDA</div><div class="cert-desc">Agricultural &amp; Processed Food Products Export Development Authority</div></div>
+    <div class="cert-card rv" data-d="2"><div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="cert-name">FSSAI</div><div class="cert-desc">Food Safety &amp; Standards Authority of India licensed exporter</div></div>
+    <div class="cert-card rv" data-d="3"><div class="cert-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div><div class="cert-name">IEC / DGFT</div><div class="cert-desc">Importer Exporter Code issued by Directorate General of Foreign Trade</div></div>
+    <div class="cert-card rv" data-d="4"><div class="cert-icon"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div><div class="cert-name">GST Registered</div><div class="cert-desc">Goods &amp; Services Tax compliant entity for all export transactions</div></div>
+  </div>
+</section>
+<section id="contact">
+  <div class="rv-l">
+    <div class="s-label">Get in Touch</div>
+    <div class="s-title">Let's build something <em>global.</em></div>
+    <p style="font-size:15px;color:var(--muted);line-height:1.8;margin-top:20px;margin-bottom:40px;">Whether you're looking for a specific product, need a competitive quote, or want to discuss a long-term supply arrangement &mdash; we're here.</p>
+    <div class="contact-info">
+      <div class="ci-item rv" data-d="1"><div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="ci-label">Registered Office</div><div class="ci-val">Mumbai, Maharashtra, India</div></div></div>
+      <div class="ci-item rv" data-d="2"><div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><div class="ci-label">Email</div><div class="ci-val">trade@infinomex.com</div></div></div>
+      <div class="ci-item rv" data-d="3"><div class="ci-icon"><svg viewBox="0 0 24 24"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg></div><div><div class="ci-label">Export Ports</div><div class="ci-val">JNPT (Mumbai) &middot; Mundra &middot; Chennai</div></div></div>
+    </div>
+  </div>
+  <div class="rv-r">
+    <form class="contact-form" onsubmit="handleForm(event)">
+      <div class="form-row">
+        <div class="fg"><label>Your Name *</label><input type="text" placeholder="Full name" required></div>
+        <div class="fg"><label>Company *</label><input type="text" placeholder="Company name" required></div>
+      </div>
+      <div class="form-row">
+        <div class="fg"><label>Email *</label><input type="email" placeholder="you@company.com" required></div>
+        <div class="fg"><label>Country</label><input type="text" placeholder="e.g. UAE, Nigeria"></div>
+      </div>
+      <div class="fg">
+        <label>Product Interest *</label>
+        <select required>
+          <option value="">Select a category</option>
+          <option>Agricultural Products (Rice, Spices, Coconut, Banana)</option>
+          <option>Steel Scrap (HMS 1&amp;2, Shredded, Cast Iron)</option>
+          <option>Engineering Goods (Machinery, Tools, Components)</option>
+          <option>Multiple Categories</option>
+          <option>Other / Custom Requirement</option>
+        </select>
+      </div>
+      <div class="fg"><label>Your Requirement</label><textarea placeholder="Quantity, specifications, target price, timeline..."></textarea></div>
+      <div class="fg">
+        <label>Payment Mode</label>
+        <select>
+          <option value="">Select mode</option>
+          <option>TT (Telegraphic Transfer)</option>
+          <option>LC (Letter of Credit)</option>
+          <option>DP (Documents against Payment)</option>
+          <option>CAD (Cash Against Documents)</option>
+          <option>Open to Discussion</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-p" style="margin-top:4px;width:100%;justify-content:center;"><span>Send Enquiry &rarr;</span></button>
+      <div id="form-ok" style="display:none;padding:12px 16px;background:var(--g7);border:1px solid var(--g5);border-radius:1px;font-size:13px;color:var(--g1);">&#10003; Thank you! We'll respond within 24 hours.</div>
+    </form>
+  </div>
+</section>
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="data:image/jpeg;base64,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" alt="Infinomex">
+      <div class="footer-tagline">Infinomex Global Private Limited<br>India's trusted export partner &mdash; agricultural products, steel scrap &amp; engineering goods to the world.</div>
+    </div>
+    <div class="footer-links"><h5>Navigate</h5><ul><li><a href="#about">About Us</a></li><li><a href="#products">Products</a></li><li><a href="#process">Export Process</a></li><li><a href="#certs">Certifications</a></li><li><a href="#markets">Markets</a></li><li><a href="#contact">Contact</a></li></ul></div>
+    <div class="footer-links"><h5>Products</h5><ul><li><a href="#products">Agricultural Products</a></li><li><a href="#products">Steel Scrap &amp; Metals</a></li><li><a href="#products">Engineering Goods</a></li><li><a href="#contact">Custom Requirements</a></li></ul></div>
+    <div class="footer-links"><h5>Certifications</h5><ul><li><a href="#certs">APEDA Certified</a></li><li><a href="#certs">FSSAI Licensed</a></li><li><a href="#certs">IEC / DGFT</a></li><li><a href="#certs">GST Registered</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">&copy; 2025 Infinomex Global Private Limited. All rights reserved.</div>
+    <div class="footer-reg">CIN: U51909MH2024PTC000000 &middot; APEDA Reg. &middot; FSSAI Lic. &middot; IEC Reg.</div>
+  </div>
+</footer>
+<script>
+var cur=document.getElementById('cur'), cur2=document.getElementById('cur2');
+var mx=0,my=0,fx=0,fy=0;
+document.addEventListener('mousemove',function(e){
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=mx+'px'; cur.style.top=my+'px';
+});
+(function animCur(){
+  fx+=(mx-fx)*.12; fy+=(my-fy)*.12;
+  cur2.style.left=fx+'px'; cur2.style.top=fy+'px';
+  requestAnimationFrame(animCur);
+})();
+document.querySelectorAll('a,button,select,input,textarea,.prod-card,.mkt-card,.proc-item').forEach(function(el){
+  el.addEventListener('mouseenter',function(){document.body.classList.add('hovering');});
+  el.addEventListener('mouseleave',function(){document.body.classList.remove('hovering');});
+});
+window.addEventListener('load',function(){
+  setTimeout(function(){document.getElementById('loader').classList.add('done');},2200);
+});
+var nav=document.getElementById('nav');
+window.addEventListener('scroll',function(){nav.classList.toggle('scrolled',window.scrollY>60);});
+function openMob(){document.getElementById('mobMenu').classList.add('open');}
+function closeMob(){document.getElementById('mobMenu').classList.remove('open');}
+var observer=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});
+},{threshold:.12,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(function(el){observer.observe(el);});
+document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  a.addEventListener('click',function(e){
+    var t=document.querySelector(a.getAttribute('href'));
+    if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
+  });
+});
+function handleForm(e){
+  e.preventDefault();
+  var btn=e.target.querySelector('[type="submit"]');
+  btn.innerHTML='<span>Sending...</span>';
+  btn.disabled=true;
+  setTimeout(function(){
+    document.getElementById('form-ok').style.display='block';
+    btn.innerHTML='<span>Sent &#10003;</span>';
+    e.target.reset();
+  },900);
+}
+(function(){
+  var canvas=document.getElementById('hero-canvas');
+  if(!canvas)return;
+  var ctx=canvas.getContext('2d');
+  function resize(){canvas.width=canvas.offsetWidth;canvas.height=canvas.offsetHeight;}
+  resize();
+  window.addEventListener('resize',resize);
+  var C={g0:'#0a1a0f',g1:'#1b4332',g2:'#2d6a4f',g3:'#40916c',g4:'#52b788',g5:'#74c69d',g6:'#b7e4c7',g7:'#d8f3dc',g8:'#f0faf3'};
+  function HZ(){return canvas.height*0.68;}
+  var wt=0;
+  function drawOcean(){
+    var h=HZ(),W=canvas.width,H=canvas.height;
+    var sg=ctx.createLinearGradient(0,h,0,H);
+    sg.addColorStop(0,'rgba(27,67,50,0.14)');
+    sg.addColorStop(1,'rgba(27,67,50,0.28)');
+    ctx.fillStyle=sg;ctx.fillRect(0,h,W,H-h);
+    ctx.beginPath();ctx.moveTo(0,h);ctx.lineTo(W,h);
+    ctx.strokeStyle='rgba(64,145,108,0.22)';ctx.lineWidth=1.2;ctx.stroke();
+    wt+=0.3;
+    for(var r=0;r<6;r++){
+      var wy=h+16+r*15,amp=2+r*0.7,freq=0.013-r*0.001;
+      ctx.beginPath();
+      for(var x=0;x<=W;x+=3){
+        var y=wy+Math.sin(x*freq+wt*0.035+r*1.1)*amp;
+        if(x===0){ctx.moveTo(x,y);}else{ctx.lineTo(x,y);}
+      }
+      ctx.strokeStyle='rgba(116,198,157,'+(0.07+r*0.013)+')';
+      ctx.lineWidth=1;ctx.stroke();
+    }
+    for(var i=0;i<5;i++){
+      var sx=W*0.1+i*W*0.18+Math.sin(wt*0.018+i)*18;
+      ctx.beginPath();
+      ctx.moveTo(sx-28,h+25+i*7);ctx.lineTo(sx+28,h+25+i*7);
+      ctx.strokeStyle='rgba(183,228,199,'+(0.09-i*0.012)+')';
+      ctx.lineWidth=1.5;ctx.stroke();
+    }
+  }
+  var clouds=[{x:80,y:70,s:1.0,sp:0.05},{x:420,y:48,s:0.72,sp:0.038},{x:760,y:85,s:0.88,sp:0.045},{x:1100,y:58,s:1.1,sp:0.042}];
+  function drawClouds(){
+    clouds.forEach(function(c){
+      c.x+=c.sp;if(c.x>canvas.width+180)c.x=-180;
+      ctx.save();ctx.translate(c.x,c.y);ctx.scale(c.s,c.s);
+      ctx.globalAlpha=0.22;
+      [[-48,0,28],[-22,-8,24],[4,0,22],[26,-5,18],[44,4,16]].forEach(function(p){
+        ctx.beginPath();ctx.arc(p[0],p[1],p[2],0,Math.PI*2);
+        ctx.fillStyle='rgba(210,240,218,0.7)';ctx.fill();
+      });
+      ctx.globalAlpha=1;ctx.restore();
+    });
+  }
+  function makeShip(x){
+    return {x:x!==undefined?x:-380,y:0,sp:0.32+Math.random()*0.16,sc:0.6+Math.random()*0.5,smoke:[]};
+  }
+  var ships=[makeShip(canvas.width*0.08),makeShip(canvas.width*0.62)];
+  function drawShip(ship){
+    var h=HZ(),s=ship.sc,x=ship.x,y=h;
+    ctx.save();ctx.translate(x,y);ctx.scale(s,s);
+    ctx.beginPath();ctx.ellipse(0,16,108,8,0,0,Math.PI*2);
+    ctx.fillStyle='rgba(0,0,0,0.1)';ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(-110,0);ctx.lineTo(-95,20);ctx.lineTo(92,20);
+    ctx.lineTo(112,0);ctx.lineTo(94,-8);ctx.lineTo(-94,-8);
+    ctx.closePath();ctx.fillStyle=C.g1;ctx.fill();
+    ctx.beginPath();ctx.moveTo(-108,3);ctx.lineTo(110,3);
+    ctx.strokeStyle=C.g5;ctx.lineWidth=2.5;ctx.stroke();
+    ctx.fillStyle='#112d1e';ctx.fillRect(-90,-20,180,12);
+    var cols=[C.g2,C.g3,'#113522',C.g4,C.g2,C.g3];
+    for(var col=0;col<6;col++){
+      ctx.fillStyle=cols[col];ctx.fillRect(-82+col*28,-38,24,18);
+      ctx.strokeStyle='rgba(255,255,255,0.1)';ctx.lineWidth=0.8;ctx.strokeRect(-82+col*28,-38,24,18);
+      ctx.beginPath();ctx.moveTo(-82+col*28+12,-38);ctx.lineTo(-82+col*28+12,-20);
+      ctx.strokeStyle='rgba(0,0,0,0.2)';ctx.stroke();
+    }
+    for(var col2=0;col2<4;col2++){
+      ctx.fillStyle=cols[(col2+2)%6];ctx.fillRect(-60+col2*28,-56,24,18);
+      ctx.strokeStyle='rgba(255,255,255,0.08)';ctx.lineWidth=0.8;ctx.strokeRect(-60+col2*28,-56,24,18);
+    }
+    for(var col3=0;col3<2;col3++){
+      ctx.fillStyle=cols[(col3+4)%6];ctx.fillRect(-30+col3*28,-72,24,16);
+    }
+    ctx.fillStyle='#1b4332';ctx.fillRect(60,-62,42,42);
+    ctx.fillStyle='#0e2218';ctx.fillRect(60,-62,42,10);
+    [[64,-56],[74,-56],[84,-56],[64,-46],[74,-46]].forEach(function(p){
+      ctx.fillStyle='rgba(116,198,157,0.55)';ctx.fillRect(p[0],p[1],8,6);
+    });
+    ctx.fillStyle='#1b4332';ctx.fillRect(100,-52,12,10);
+    ctx.fillStyle=C.g1;ctx.fillRect(74,-84,16,24);
+    ctx.fillStyle='#0a1a0f';ctx.fillRect(72,-88,20,6);
+    ctx.fillStyle=C.g5;ctx.fillRect(72,-78,20,4);
+    ctx.strokeStyle=C.g3;ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(-50,-20);ctx.lineTo(-50,-78);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(-50,-78);ctx.lineTo(20,-42);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(20,-42);ctx.lineTo(20,-56);ctx.stroke();
+    ctx.strokeStyle='rgba(116,198,157,0.5)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(20,-42);ctx.lineTo(20,-20);ctx.stroke();
+    ctx.beginPath();ctx.arc(-100,4,5,0,Math.PI*2);ctx.fillStyle=C.g5;ctx.fill();
+    ctx.beginPath();ctx.moveTo(-112,8);ctx.quadraticCurveTo(-138,3,-155,10);
+    ctx.strokeStyle='rgba(116,198,157,0.38)';ctx.lineWidth=2.5;ctx.stroke();
+    ctx.beginPath();ctx.moveTo(-112,13);ctx.quadraticCurveTo(-130,8,-144,15);
+    ctx.strokeStyle='rgba(116,198,157,0.2)';ctx.lineWidth=1.5;ctx.stroke();
+    ctx.restore();
+    if(Math.random()<0.06){
+      ship.smoke.push({x:x+s*82,y:y-s*84,vx:-0.1+Math.random()*0.2,vy:-0.55-Math.random()*0.4,life:1,r:3+Math.random()*4});
+    }
+    ship.smoke=ship.smoke.filter(function(p){
+      p.x+=p.vx;p.y+=p.vy;p.life-=0.01;p.r+=0.12;
+      if(p.life<=0)return false;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(45,106,79,'+p.life*0.18+')';ctx.fill();
+      return true;
+    });
+  }
+  var started=false;
+  setTimeout(function(){started=true;},2300);
+  function loop(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    if(!started){requestAnimationFrame(loop);return;}
+    drawOcean();
+    drawClouds();
+    ships.forEach(function(ship){
+      ship.x+=ship.sp;
+      if(ship.x>canvas.width+400){
+        ship.x=-400;ship.sc=0.6+Math.random()*0.5;ship.sp=0.28+Math.random()*0.18;ship.smoke=[];
+      }
+      drawShip(ship);
+    });
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+</script>
+</body>
+</html>
